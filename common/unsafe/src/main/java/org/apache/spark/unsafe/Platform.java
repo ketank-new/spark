@@ -58,7 +58,7 @@ public final class Platform {
           Class.forName("java.nio.Bits", false, ClassLoader.getSystemClassLoader());
         Method unalignedMethod = bitsClass.getDeclaredMethod("unaligned");
         unalignedMethod.setAccessible(true);
-        if(arch.matches("^(s390x)$")){
+        if(arch.matches("^(s390x|s390)$")){
          _unaligned=true;
         }else{
          _unaligned = Boolean.TRUE.equals(unalignedMethod.invoke(null));
