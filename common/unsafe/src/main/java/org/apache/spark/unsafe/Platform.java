@@ -58,12 +58,11 @@ public final class Platform {
           Class.forName("java.nio.Bits", false, ClassLoader.getSystemClassLoader());
         Method unalignedMethod = bitsClass.getDeclaredMethod("unaligned");
         unalignedMethod.setAccessible(true);
-        _unaligned = Boolean.TRUE.equals(unalignedMethod.invoke(null));
-      if(arch.matches("^(s390x|s390x)$")){
-       _unaligned=true;
-      }else{
-       _unaligned = Boolean.TRUE.equals(unalignedMethod.invoke(null));
-      }
+        if(arch.matches("^(s390x)$")){
+         _unaligned=true;
+        }else{
+         _unaligned = Boolean.TRUE.equals(unalignedMethod.invoke(null));
+        }
       } catch (Throwable t) {
         // We at least know x86 and x64 support unaligned access.
         //noinspection DynamicRegexReplaceableByCompiledPattern
