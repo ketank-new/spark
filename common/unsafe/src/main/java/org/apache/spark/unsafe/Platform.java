@@ -44,6 +44,7 @@ public final class Platform {
   public static final int DOUBLE_ARRAY_OFFSET;
 
   private static final boolean unaligned;
+  String arch = System.getProperty("os.arch", "");
   static {
     boolean _unaligned;
     String arch = System.getProperty("os.arch", "");
@@ -58,6 +59,11 @@ public final class Platform {
         Method unalignedMethod = bitsClass.getDeclaredMethod("unaligned");
         unalignedMethod.setAccessible(true);
         _unaligned = Boolean.TRUE.equals(unalignedMethod.invoke(null));
+      if(arch.matches("^(s390x|s390x)$")){
+       _unaligned=true;
+      }else{
+       _unaligned = Boolean.TRUE.equals(unalignedMethod.invoke(null));
+      }
       } catch (Throwable t) {
         // We at least know x86 and x64 support unaligned access.
         //noinspection DynamicRegexReplaceableByCompiledPattern
